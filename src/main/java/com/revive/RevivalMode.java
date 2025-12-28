@@ -6,8 +6,8 @@ import com.revive.listeners.PlayerDeath;
 import io.papermc.lib.PaperLib;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
-import org.slf4j.Logger;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.slf4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,45 +18,32 @@ import java.util.List;
  * @author Copyright (c) The24Kings. All Rights Reserved.
  */
 public class RevivalMode extends JavaPlugin {
-  public static RevivalMode plugin;
-  public static List<Location> chests = new ArrayList<>();
-  public static NamespacedKey key = new NamespacedKey(plugin, "revive");
+    private final Logger logger = this.getSLF4JLogger();
+    public static RevivalMode plugin;
+    public static final List<Location> chests = new ArrayList<>();
+    public static final NamespacedKey key = new NamespacedKey(plugin, "revive");
 
-  private final Logger logger = this.getSLF4JLogger();
+    @Override
+    public void onEnable() {
+        plugin = this;
 
-  public static RevivalMode getPlugin() {
-    return plugin;
-  }
+        PaperLib.suggestPaper(plugin);
+        registerCommandsAndEvents();
 
-  public Logger getPluginLogger() {
-    return logger;
-  }
+        logger.info("[RevivalMode] Has started Successfully");
 
-  public static List<Location> getActiveChests() {
-    return chests;
-  }
+        saveDefaultConfig();
+    }
 
-  @Override
-  public void onEnable() {
-    plugin = this;
+    @Override
+    public void onDisable() {
+        // Plugin shutdown logic
+        logger.info("[RevivalMode] Disabled");
+    }
 
-    PaperLib.suggestPaper(plugin);
-    registerCommandsAndEvents();
-
-    logger.info("[ReviveSMP] Has started Successfully");
-
-    saveDefaultConfig();
-  }
-
-  @Override
-  public void onDisable() {
-    // Plugin shutdown logic
-    logger.info("[ReviveSMP] Disabled");
-  }
-
-  private void registerCommandsAndEvents() {
-    getServer().getPluginManager().registerEvents(new ChestClose(), plugin);
-    getServer().getPluginManager().registerEvents(new HeadPlace(), plugin);
-    getServer().getPluginManager().registerEvents(new PlayerDeath(), plugin);
-  }
+    private void registerCommandsAndEvents() {
+        getServer().getPluginManager().registerEvents(new ChestClose(), plugin);
+        getServer().getPluginManager().registerEvents(new HeadPlace(), plugin);
+        getServer().getPluginManager().registerEvents(new PlayerDeath(), plugin);
+    }
 }

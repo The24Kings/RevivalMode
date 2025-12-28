@@ -20,9 +20,12 @@ import java.util.List;
 
 import static org.bukkit.Bukkit.getServer;
 
-public class HeadPlace  implements Listener {
-    private static final RevivalMode plugin = RevivalMode.getPlugin();
-    private final Logger logger = plugin.getSLF4JLogger();
+/**
+ * Listener class for placing a player head in the world. If a player head that contains a
+ * persistent data container string "revive" then the revive process occurs.
+ */
+public class HeadPlace implements Listener {
+    private final Logger logger = RevivalMode.plugin.getSLF4JLogger();
 
     @EventHandler
     public void onHeadPlace(BlockPlaceEvent event) {
@@ -55,7 +58,7 @@ public class HeadPlace  implements Listener {
             Player player = meta.getOwningPlayer().getPlayer();
             player.teleport(location.add(0.5, 0, 0.5));
 
-            //Effects
+            // Effects
             world.strikeLightning(location);
             player.addPotionEffects(enchantedGoldenApple);
 

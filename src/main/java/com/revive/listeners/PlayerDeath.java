@@ -3,7 +3,10 @@ package com.revive.listeners;
 import com.revive.RevivalMode;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import org.bukkit.*;
+import org.bukkit.GameMode;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
 import org.bukkit.entity.Player;
@@ -18,9 +21,11 @@ import org.slf4j.Logger;
 
 import static com.revive.RevivalMode.getPlugin;
 
-public class PlayerDeath  implements Listener {
-    private static final RevivalMode plugin = getPlugin();
-    private final Logger logger = plugin.getSLF4JLogger();
+/**
+ * Listener class for when a player dies, either by natural causes or by another player's hand.
+ */
+public class PlayerDeath implements Listener {
+    private final Logger logger = RevivalMode.plugin.getSLF4JLogger();
 
     boolean killedByPlayer(Player attacker) {
         return attacker != null;

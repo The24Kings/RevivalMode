@@ -9,9 +9,12 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.slf4j.Logger;
 
+/**
+ * Listener class for when a player closes a chest. Removes said chest from the world
+ * if it is empty and is one of the chests we are tracking as a grave.
+ */
 public class ChestClose implements Listener {
-    private static final RevivalMode plugin = RevivalMode.getPlugin();
-    private final Logger logger = plugin.getSLF4JLogger();
+    private final Logger logger = RevivalMode.plugin.getSLF4JLogger();
 
     // TODO: Add a hologram with the text "<Player>'s Grave"
     @EventHandler
@@ -19,7 +22,7 @@ public class ChestClose implements Listener {
         Inventory inv = event.getInventory();
         Location location = inv.getLocation();
 
-        if(!inv.isEmpty()) {
+        if (!inv.isEmpty()) {
             return;
         }
 
@@ -30,7 +33,7 @@ public class ChestClose implements Listener {
         try {
             location.getBlock().setType(Material.AIR);
             RevivalMode.chests.remove(location);
-        } catch(NullPointerException e) {
+        } catch (NullPointerException e) {
             logger.error("Unable to alter the chest information.");
         }
     }
