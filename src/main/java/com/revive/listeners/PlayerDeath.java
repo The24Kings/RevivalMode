@@ -19,8 +19,6 @@ import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.persistence.PersistentDataType;
 import org.slf4j.Logger;
 
-import static com.revive.RevivalMode.getPlugin;
-
 /**
  * Listener class for when a player dies, either by natural causes or by another player's hand.
  */
