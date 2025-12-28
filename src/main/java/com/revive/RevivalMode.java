@@ -18,14 +18,15 @@ import java.util.List;
  * @author Copyright (c) The24Kings. All Rights Reserved.
  */
 public class RevivalMode extends JavaPlugin {
-    private final Logger logger = this.getSLF4JLogger();
     public static RevivalMode plugin;
+    public static NamespacedKey key;
+    private final Logger logger = this.getSLF4JLogger();
     public static final List<Location> chests = new ArrayList<>();
-    public static final NamespacedKey key = new NamespacedKey(plugin, "revive");
 
     @Override
     public void onEnable() {
         plugin = this;
+        key = new NamespacedKey(plugin, "revive");
 
         PaperLib.suggestPaper(plugin);
         registerCommandsAndEvents();
